@@ -1,9 +1,10 @@
 WLPopdownListView
+![image](https://github.com/linger103/WLPopdownListView/raw/master/screenshot.png) 
 
-You Can Use it easy!
+You can use it easy!
 
     WLPopdownListView *popListView = [[WLPopdownListView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width),[UIScreen mainScreen].bounds.size.height)];
-    popListView.dataSource = [NSArray arrayWithObjects:@"All", @"sectionOne", @"sectionTwo",nil];
+    popListView.dataSource = [NSArray arrayWithObjects:@"全部", @"收入", @"支出",nil];
     popListView.cellHeight = 50.f;
     popListView.selectIndex = [_requestBalanceType intValue];
     popListView.delegate = self;
