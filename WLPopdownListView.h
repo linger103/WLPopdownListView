@@ -24,6 +24,6 @@
 @property (nonatomic, assign) BOOL autoHideAfterSelect; //default NO
 
 - (void)showPopdownListView:(UIView *)view;
-- (void)hidePopdownListView;
+- (void)hidePopdownListView; 
 
 @end
