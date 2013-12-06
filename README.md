@@ -1,5 +1,7 @@
 WLPopdownListView
-![image](https://github.com/linger103/WLPopdownListView/raw/master/screenshot.png) 
+
+<br/>
+<img src="https://github.com/linger103/WLPopdownListView/raw/master/screenshot.png" alt="Image" title="ScreenShot" width="200" height="300" />
 
 You can use it easy!
 
