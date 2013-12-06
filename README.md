@@ -11,7 +11,11 @@ You Can Use it easy!
     [popListView showPopdownListView:self.view];
     [popListView release];
     
-===================================================================
     
+    PopdownListViewDelegate
+    - (void)didSelectPopDownIndex:(WLPopdownListView *)popDownListView
+    {
+     WLLog("%@", popDownListView.selectIndex);
+}
 
 ===================================================================
