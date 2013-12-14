@@ -5,10 +5,10 @@ WLPopdownListView
 
 You can use it easy!
 
-    WLPopdownListView *popListView = [[WLPopdownListView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width),[UIScreen mainScreen].bounds.size.height)];
+    WLPopdownListView *popListView = [[WLPopdownListView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width ,[UIScreen mainScreen].bounds.size.height)];
     popListView.dataSource = [NSArray arrayWithObjects:@"全部", @"支出", @"收入",nil];
     popListView.cellHeight = 50.f;
-    popListView.selectIndex = [_requestBalanceType intValue];
+    popListView.selectIndex = 0;
     popListView.delegate = self;
     popListView.autoHideAfterSelect = YES;
     [popListView showPopdownListView:self.view];
