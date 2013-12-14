@@ -66,16 +66,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              cellIdentifierCell];
     if (cell == nil) {
-    	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierCell] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifierCell] autorelease];
+        
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.cellHeight)];
+        textLabel.textColor = [UIColor blackColor];
+        textLabel.font = [UIFont systemFontOfSize:16];
+        textLabel.tag = 100;
+        textLabel.textAlignment = NSTextAlignmentCenter;
+        [cell.contentView addSubview:textLabel];
+        [textLabel release];
     }
     
-    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.cellHeight)];
-    textLabel.textColor = [UIColor blackColor];
-    textLabel.font = [UIFont systemFontOfSize:16];
-    textLabel.textAlignment = NSTextAlignmentCenter;
+    UILabel *textLabel = (UILabel *)[cell.contentView viewWithTag:100];
     textLabel.text = [self.dataSource objectAtIndex:indexPath.row];
-    [cell.contentView addSubview:textLabel];
-    [textLabel release];
     
 	return cell;
 }
@@ -88,6 +91,7 @@
     bgView.backgroundColor = [UIColor blackColor];
     bgView.alpha = 0.5;
     [self addSubview:bgView];
+    [bgView release];
     
     UITapGestureRecognizer *tapGuesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGuestureClick:)];
     [tapGuesture setNumberOfTapsRequired:1];
@@ -95,23 +99,19 @@
     [bgView addGestureRecognizer:tapGuesture];
     [tapGuesture release];
     
-    [bgView release];
-    
-    [self setTableView:[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain]];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    if (self.cellHeight*self.dataSource.count > [UIScreen mainScreen].bounds.size.height -44)
+    if (self.cellHeight*self.dataSource.count > self.frame.size.height - 20.f)
     {
-        self.tableView.frame = CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 44);
+        self.tableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 20.f);
     }
     else
     {
-        self.tableView.frame = CGRectMake(0, 44, [UIScreen mainScreen].bounds.size.width, self.cellHeight*self.dataSource.count);
+        self.tableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.cellHeight*self.dataSource.count);
     }
     [self addSubview:self.tableView];
     [self.tableView release];
-    
     [self.tableView reloadData];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectIndex inSection:0];
     [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop
@@ -121,16 +121,16 @@
 - (void)showPopdownListView:(UIView *)view
 {
     [view addSubview:self];
-    self.frame = CGRectMake(0, -[UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.frame = CGRectMake(0, -[UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height -44.f);
     [UIView animateWithDuration:0.35 animations:^{
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        self.frame = CGRectMake(0, 44.f, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height -44.f);
     }];
 }
 
 - (void)tapGuestureClick:(UIGestureRecognizer *)gestureReg
 {
     [UIView animateWithDuration:0.35 animations:^{
-        self.frame = CGRectMake(0, -[UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        self.frame = CGRectMake(0, -[UIScreen mainScreen].bounds.size.height , [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height -44.f);
     } completion:^(BOOL finish)
     {
         [self removeFromSuperview];
